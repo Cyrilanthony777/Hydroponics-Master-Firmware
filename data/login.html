@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <title>Log In</title>
+        <style>
+            body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            }
+
+            code {
+            font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+                monospace;
+            }
+            .fa-3x {
+                font-size: 3em;
+            }
+
+
+            .svg-inline--fa {
+                display: var(--fa-display, inline-block);
+                height: 1em;
+                overflow: visible;
+                vertical-align: -0.125em;
+            }
+            .login-page
+            {
+                background-color: #282a36;
+                height: 100vh;
+                
+            }
+
+            .login-container
+            {
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .login-box
+            {
+                width: 400px;
+                height: 400px;
+                background-color: #44475a;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .login-header
+            {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            }
+
+            .login-header h1
+            {
+            color: #f8f8f2;
+            font-size: 30px;
+            margin-left: 10px;
+            }
+
+            .login-spacer
+            {
+            padding: 15px;
+            }
+
+            .login-login
+            {
+            color: #f8f8f2;
+            font-size: 20px;
+            
+            }
+
+            .login-input input
+            {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+            padding-left: 10px;
+            }
+
+            .login-button button
+            {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+            background-color: #bd93f9;
+            color: #f8f8f2;
+            font-size: 20px;
+            margin-top: 10px;
+            }
+
+            .login-button button:hover
+            {
+            background-color: #ff79c6;
+            cursor: pointer;
+            }
+
+            .subtext
+            {
+            color: #f8f8f2;
+            font-size: 10px;
+            text-align: center;
+            padding: 10px;
+            font-style: italic;
+            text-decoration: underline;
+            }
+        </style>
+        <script>
+            
+
+            function doAjaxPost(e)
+            {
+                e.preventDefault();
+                // get the form values
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+
+                fetch('/dologin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({username: username, password: password}),
+                }).then((response) => response.json()).then((data) => {
+                    console.log('Success:', data);
+                    if(data.status == "success")
+                    {
+                        window.location.href = "/dashboard";
+                    }
+                    else
+                    {
+                        alert("Invalid Username or Password");
+                    }
+                }).catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+
+        </script>
+
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="login-container">
+                <div class="login-box">
+                    <div class="login-header">
+                        <div class="login-logo">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="leaf" class="svg-inline--fa fa-leaf fa-3x " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" color="#50fa7b"><path fill="currentColor" d="M272 96c-78.6 0-145.1 51.5-167.7 122.5c33.6-17 71.5-26.5 111.7-26.5h88c8.8 0 16 7.2 16 16s-7.2 16-16 16H288 216s0 0 0 0c-16.6 0-32.7 1.9-48.2 5.4c-25.9 5.9-50 16.4-71.4 30.7c0 0 0 0 0 0C38.3 298.8 0 364.9 0 440v16c0 13.3 10.7 24 24 24s24-10.7 24-24V440c0-48.7 20.7-92.5 53.8-123.2C121.6 392.3 190.3 448 272 448l1 0c132.1-.7 239-130.9 239-291.4c0-42.6-7.5-83.1-21.1-119.6c-2.6-6.9-12.7-6.6-16.2-.1C455.9 72.1 418.7 96 376 96L272 96z"></path></svg>
+                        </div>
+                        <h1 class="login-title">GROWFI32</h1>
+                        
+                    </div>
+                    <div class="login-spacer">
+                        <div class="login-login">Login</div>
+                    </div>
+                    <div class="login-spacer">
+                        <div class="login-input">
+                            <input type="text" placeholder="Username" id="username"/>
+                           
+                        </div>
+                    </div>
+                    <div class="login-spacer">
+                        <div class="login-input">
+                            <input type="password" placeholder="Password" id="password"/>
+                        </div>
+                    </div>
+                    <div class="login-spacer">
+                        <div class="login-button">
+                            <button onclick="doAjaxPost(event)">Login</button>
+                        </div>
+                    </div>
+
+                    <div class="subtext">
+
+                        Designed and Developed by Cyril Anthony Humbert Arulalagan Gonsalves (HUM0038) for Final Year Project VSB-TUO
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>
