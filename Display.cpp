@@ -26,6 +26,25 @@ void Display::drawScreen1()
     display.print(this->sensors->getLight());
 }
 
+void Display::drawScreen2()
+{
+    display.setFont(NULL);
+    display.setCursor(43, 16);
+    display.print(" WATER");
+    display.setCursor(0, 27);
+    display.print("EC          :");
+    display.setCursor(0, 40);
+    display.print("pH          :");
+    display.setCursor(0, 53);
+    display.print("Water Temp  :");
+    display.setCursor(80, 27);
+    display.print(this->sensors->getEC());
+    display.setCursor(80, 40);
+    display.print(this->sensors->getPH());
+    display.setCursor(80, 53);
+    display.print(this->sensors->getWaterTemp());
+}
+
 bool Display::initDisplay()
 {
  if(display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
@@ -95,11 +114,33 @@ void Display::updateDisplay()
     display.setTextSize(1);
     display.setTextColor(WHITE);
     this->drawHeader();
-    this->drawScreen1();
+    if(this->screen == 1)
+    {
+      this->drawScreen1();
+    }
+    else
+    {
+      this->drawScreen2();
+    }
+    
     display.display();
 
   }
 }
+
+void Display::changeScreen()
+{
+  if(this->screen == MAX_SCREEN)
+  {
+    this->screen = 1;
+  }
+  else
+  {
+    this->screen++;
+  }
+}
+
+
 
 
 void Display::setConfigOK(bool configOK)

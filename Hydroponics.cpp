@@ -4,7 +4,6 @@ Hydroponics::Hydroponics()
 {
     
     this->actuators = new Actuators();
-    
     this->flashStorage = new FlashStorage();
     this->localTime = new LocalTime();
     this->logger = new Logger();
@@ -38,4 +37,9 @@ void Hydroponics::update1S()
 {
     this->sensors->sensorUpdate();
     this->display->updateDisplay();
+}
+
+void Hydroponics::update3S()
+{
+  this->display->changeScreen();
 }

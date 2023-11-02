@@ -36,6 +36,7 @@ public:
     Hydroponics();
     void init();
     void update1S();
+    void update3S();
 };
 
 

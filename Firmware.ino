@@ -7,7 +7,8 @@
 #include "SPIFFS.h"
 #include "Hydroponics.h"
 
-unsigned long nextMillis = 0;
+unsigned long nextMillis1s = 0;
+unsigned long nextMillis3s = 3000;
 Hydroponics* hydroponics;
 
 void setup(){
@@ -23,10 +24,16 @@ void setup(){
 void loop(){
 
   unsigned long currentMillis = millis();
-  if(currentMillis >= nextMillis)
+  if(currentMillis >= nextMillis1s)
   {
-    nextMillis = currentMillis + 1000;
+    nextMillis1s = currentMillis + 1000;
     hydroponics->update1S();
+  }
+
+  if(currentMillis >= nextMillis3s)
+  {
+    hydroponics->update3S();
+    nextMillis3s = currentMillis + 3000;
   }
 
   

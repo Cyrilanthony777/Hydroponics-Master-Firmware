@@ -1,6 +1,8 @@
 #include "Sensors.h"
 
 BH1750 lightMeter;
+OneWire oneWire(WATER_TEMP_PIN);
+DallasTemperature waterTempSensor(&oneWire);
 
 Sensors::Sensors(Calibration* calib,Config* config)
 {
@@ -14,7 +16,34 @@ void Sensors::init(void)
   Wire.begin();
   this->initClimateSensor();
   this->light_sensor_ok = lightMeter.begin();
+  this->initWaterTempSensor();
   
+}
+
+void Sensors::initWaterTempSensor()
+{
+   waterTempSensor.begin();
+   uint8_t count = waterTempSensor.getDeviceCount();
+   delay(100);
+   if(count > 0)
+   {
+    this->water_temp_sensor_ok = true;
+    Serial.println("Water Temperature Sensor OK");
+   }
+   else
+   {
+    this->water_temp_sensor_ok = false;
+    Serial.println("Water Temperature Sensor FAILED!!!!");
+   }
+}
+
+void Sensors::updateWaterTempSensor()
+{
+  if(this->water_temp_sensor_ok)
+  {
+    waterTempSensor.requestTemperatures();
+    this->water_temp = waterTempSensor.getTempCByIndex(0);
+  }
 }
 
 void Sensors::initClimateSensor(void)
@@ -71,7 +100,10 @@ void Sensors::sensorUpdate(void)
 {
   this->updateClimateSensor();
   this->updateLightSensor();
-  Serial.print("Air Temp: ");
+  this->updateWaterTempSensor();
+  Serial.print("Water Temp: ");
+  Serial.print(this->water_temp);
+  Serial.print(" | Air Temp: ");
   Serial.print(this->air_tempe);
   Serial.print(" | Humidity: ");
   Serial.print(this->humidity);

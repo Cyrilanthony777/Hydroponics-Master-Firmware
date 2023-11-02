@@ -7,7 +7,8 @@
 #include "pindefs.h"
 #include <Wire.h>
 #include <BH1750.h>
-
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 #define CLIMATE_SENSOR_ADDR 0x44
 
@@ -46,6 +47,8 @@ class Sensors
     void initClimateSensor(void);
     void updateClimateSensor(void);
     void updateLightSensor(void);
+    void initWaterTempSensor(void);
+    void updateWaterTempSensor(void);
     
   
 };

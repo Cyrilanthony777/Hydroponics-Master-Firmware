@@ -13,6 +13,7 @@
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET     -1
 #define SCREEN_ADDRESS 0x3C
+#define MAX_SCREEN 2
 
 class Display{
 
@@ -25,11 +26,13 @@ class Display{
     void setWifiOK(bool wifiOK);
     void setInetOk(bool inetOk);
     void setRunning(bool isRunning);
+    void changeScreen();
   private:
     void drawHeader();
     void drawScreen1();
+    void drawScreen2();
     Sensors* sensors;
-    int screen =0;
+    int screen =1;
     int x_padding = 0;
     bool isOK = false;
     bool configOK = false;
