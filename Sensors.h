@@ -27,6 +27,7 @@ class Sensors
     float getWaterFlow(void);
     float getEC(void);
     void sensorUpdate(void);
+    String getJson();
 
 
   private:
@@ -41,6 +42,7 @@ class Sensors
     float ec = 0.0;
     float water_temp = 0.0;
     float water_flow = 0.0;
+    float water_level = 0.0;
     bool light_sensor_ok = false;
     bool temp_humi_sensor_ok = false;
     bool water_temp_sensor_ok = false;

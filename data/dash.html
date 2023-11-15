@@ -5,7 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dashboard | HyDragoN </title>
         
-        <link rel="stylesheet" href="https://ik.imagekit.io/9sf4juehwn1/style_tS-qut_Na.css?updatedAt=1696316245719">
+        <link rel="stylesheet" href="./style.css">
+        <script>
+            var running = false;
+
+        </script>
+
     </head>
 
     <body>
@@ -81,9 +86,295 @@
                     </div>
                 </div>
             </div>
-            <dialog id="mt1">
-               <div onclick="mt1.close()">Some dialog content 1</div> 
+
+            <dialog id="mt1" class="dialog_style">
+                <div class="flex-column">
+                    <h3>GROW LIGHTS</h3>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Time ON</div>
+                        <input type="time" value="12:30">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Time OFF</div>
+                        <input type="time" value="12:30">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Offset</div>
+                        <input type="number" value="0" min="-65565" max="65565" step="1">
+                    </div>
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt1.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
             </dialog>
+
+            <dialog id="mt2" class="dialog_style">
+                <div class="flex-column">
+                    <h3>AIR TEMPERATURE</h3>
+
+                    
+                    <div class="flex-row between pad-bottom">
+                        <div>Offset</div>
+                        <input type="number" value="0" min="-100" max="100" step="0.1">
+                    </div>
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt2.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="mt3" class="dialog_style">
+                <div class="flex-column">
+                    <h3>HUMIDITY</h3>
+
+                    
+                    <div class="flex-row between pad-bottom">
+                        <div>Offset</div>
+                        <input type="number" value="0" min="-100" max="100" step="1">
+                    </div>
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt3.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="mt4" class="dialog_style">
+                <div class="flex-column">
+                    <h3>POTENTIAL OF HYDROGEN</h3>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>pH UP ON (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>pH DOWN ON (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Cycle Delay (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Dead Zone</div>
+                        <input type="number" value="0" min="0" max="14" step="0.1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Setpoint</div>
+                        <input type="number" value="0" min="0" max="14" step="0.1">
+                    </div>
+
+                    
+                    <div class="flex-row between pad-bottom">
+                        <div>Offset</div>
+                        <input type="number" value="0" min="-100" max="100" step="1">
+                    </div>
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt4.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="mt5" class="dialog_style">
+                <div class="flex-column">
+                    <h3>NUTRIENT</h3>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>NUTRIENT A ON (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>NUTRIENT B ON (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Cycle Delay (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Dead Zone</div>
+                        <input type="number" value="0" min="0" max="10" step="0.1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>Setpoint</div>
+                        <input type="number" value="0" min="0" max="10" step="0.1">
+                    </div>
+
+                    
+                    <div class="flex-row between pad-bottom">
+                        <div>Calibration</div>
+                        <div>LOW</div>
+                        <div>HIGH</div>
+                    </div>
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt5.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="mt6" class="dialog_style">
+                <div class="flex-column">
+                    <h3>WATER TEMPERATURE</h3>
+
+                    
+                    <div class="flex-row between pad-bottom">
+                        <div>Offset</div>
+                        <input type="number" value="0" min="-100" max="100" step="1">
+                    </div>
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt6.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="mt7" class="dialog_style">
+                <div class="flex-column">
+                    <h3>WATER FLOW</h3>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>PUMP ON (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>PUMP OFF (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    
+                    <div class="flex-row between pad-bottom">
+                        <div>Offset</div>
+                        <input type="number" value="0" min="-100" max="100" step="1">
+                    </div>
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt7.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="mt8" class="dialog_style">
+                <div class="flex-column">
+                    <h3>UV LIGHT</h3>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>UV ON (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>UV OFF (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    
+
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt8.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="mt9" class="dialog_style">
+                <div class="flex-column">
+                    <h3>AERATOR</h3>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>AERATOR ON (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between pad-bottom">
+                        <div>AERATOR OFF (sec.)</div>
+                        <input type="number" value="0" min="0" max="65500" step="1">
+                    </div>
+
+                    <div class="flex-row between">
+                        <div class="button stop" onclick="mt9.close()">
+                            CANCEL
+                        </div>
+
+                        <div class="button start">
+                            SAVE
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+
+
+
             <div class="content-body">
                 <div class="content">
                     <div class="instruments-row">
@@ -118,7 +409,7 @@
                             
                         </div>
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt2.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-violet border-violet">
                                     <span>AIR TEMPERATURE</span>
@@ -149,7 +440,7 @@
                         </div>
 
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt3.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-sky border-sky">
                                     <span>HUMIDITY</span>
@@ -175,7 +466,7 @@
                         </div>
 
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt4.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-green border-green">
                                     <span>POTENTIAL OF HYDROGEN</span>
@@ -211,7 +502,7 @@
                             
                         </div>
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt5.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-pink border-pink">
                                     <span>NUTRIENTS</span>
@@ -246,7 +537,7 @@
                         </div>
 
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt6.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-blue border-blue">
                                     <span>WATER TEMPERATURE</span>
@@ -271,7 +562,7 @@
                         </div>
 
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt7.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-cyan border-cyan">
                                     <span>WATER FLOW</span>
@@ -312,7 +603,7 @@
                         </div>
 
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt8.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-purple border-purple">
                                     <span>UV LIGHTS</span>
@@ -336,7 +627,7 @@
                             </div>
                         </div>
 
-                        <div class="instrument-box">
+                        <div class="instrument-box" onclick="mt9.showModal()">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-purple border-purple">
                                     <span>AERATOR</span>
@@ -387,7 +678,7 @@
                         </div>
 
 
-                        <div class="instrument-box">
+                        <div class="instrument-box hide" id="control_box">
                             <div class="instrument">
                                 <div class="top-panel color-bg bg-color-dark-orange border-dark-orange">
                                     <span>MANUAL CONTROLS</span>
@@ -396,11 +687,11 @@
                                     <div class="left-panel">
                                        <div class="control-row"><span class="control-label">Grow Lights</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
                                        <div class="control-row"><span class="control-label">UV Lights</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
-                                       <div class="control-row"><span class="control-label">Fan</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                       <div class="control-row"><span class="control-label">Pump</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
                                        <div class="control-row"><span class="control-label">Aerator</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
                                     </div>
                                     <div class="right-panel">
-                                        <div class="control-row"><span class="control-label">Pump</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                        
                                         <div class="control-row"><span class="control-label">Nutrient A</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
                                         <div class="control-row"><span class="control-label">Nutrient B</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>
                                         <div class="control-row"><span class="control-label">pH Up</span><label class="switch control-switch"><input type="checkbox"><span class="slider round"></span></label></div>

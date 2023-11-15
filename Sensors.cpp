@@ -147,3 +147,26 @@ float Sensors::getEC(void)
 {
   return ec;
 }
+
+String Sensors::getJson()
+{
+
+  char buff[256];
+
+  int xp = sprintf(buff,
+            "{"
+            "\"light\": %.2f,"
+            "\"air_tempe\": %.2f,"
+            "\"humidity\": %.2f,"
+            "\"ph\": %.2f,"
+            "\"ec\": %.2f,"
+            "\"water_temp\": %.2f,"
+            "\"water_flow\": %.2f,"
+            "\"water_level\": %.2f"
+            "}",
+            light, air_tempe, humidity, ph, ec, water_temp, water_flow, water_level);
+
+  return String(buff);
+
+
+}

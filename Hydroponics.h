@@ -8,7 +8,6 @@
 #include "FlashStorage.h"
 #include "LocalTime.h"
 #include "Logger.h"
-#include "Network.h"
 #include "NetworkConfigs.h"
 #include "Sensors.h"
 #include "Storage.h"
@@ -26,14 +25,25 @@ private:
     FlashStorage* flashStorage;
     LocalTime* localTime;
     Logger* logger;
-    Network* network;
     NetworkConfigs* networkConfigs;
     Sensors* sensors;
     Storage* storage;
+    bool loadOK = false;
 
     
 public:
     Hydroponics();
+    Actuators* getActuators();
+    Calibration* getCalibration();
+    Config* getConfig();
+    Display* getDisplay();
+    FlashStorage* getFlashStorage();
+    LocalTime* getLocalTime();
+    Logger* getLogger();
+    NetworkConfigs* getNetworkConfig();
+    Sensors* getSensors();
+    Storage* getStorage();
+    bool getLoadOK();
     void init();
     void update1S();
     void update3S();

@@ -21,17 +21,27 @@ bool NetworkConfigs::initNetworkConfig()
     String apiKey = "";
     int i = 0;
     while(content[i] != '\n'){
-        ssid += content[i];
+        if(content[i] != '\r')
+        {
+          ssid += content[i];
+        }
+        
         i++;
     }
     i++;
     while(content[i] != '\n'){
-        password += content[i];
+      if(content[i] != '\r')
+        {
+          password += content[i];
+        }
         i++;
     }
     i++;
     while(content[i] != '\n'){
+      if(content[i] != '\r')
+        {
         apiKey += content[i];
+        }
         i++;
     }
     this->ssid = ssid;
