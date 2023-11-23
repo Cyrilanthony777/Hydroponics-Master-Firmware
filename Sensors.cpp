@@ -156,7 +156,7 @@ String Sensors::getJson()
   int xp = sprintf(buff,
             "{"
             "\"light\": %.2f,"
-            "\"air_tempe\": %.2f,"
+            "\"air_temp\": %.2f,"
             "\"humidity\": %.2f,"
             "\"ph\": %.2f,"
             "\"ec\": %.2f,"

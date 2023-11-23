@@ -30,6 +30,7 @@ void Hydroponics::init()
     this->display->setSdOK(this->storage->isStorageOK());
     this->display->setConfigOK(configInit);
     this->loadOK = true;
+    this->process = new Process(this->actuators,this->config,this->display,this->sensors);
 
 }
 
@@ -37,6 +38,7 @@ void Hydroponics::update1S()
 {
     this->sensors->sensorUpdate();
     this->display->updateDisplay();
+    this->process->processCallback();
 }
 
 bool Hydroponics::getLoadOK()
@@ -97,4 +99,9 @@ Sensors* Hydroponics::getSensors()
 Storage* Hydroponics::getStorage()
 {
   return this->storage;
+}
+
+Process* Hydroponics::getProcess()
+{
+  return this->process;
 }

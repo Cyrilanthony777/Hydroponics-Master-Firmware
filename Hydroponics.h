@@ -11,7 +11,7 @@
 #include "NetworkConfigs.h"
 #include "Sensors.h"
 #include "Storage.h"
-
+#include "Process.h"
 
 
 
@@ -28,6 +28,7 @@ private:
     NetworkConfigs* networkConfigs;
     Sensors* sensors;
     Storage* storage;
+    Process* process;
     bool loadOK = false;
 
     
@@ -43,6 +44,7 @@ public:
     NetworkConfigs* getNetworkConfig();
     Sensors* getSensors();
     Storage* getStorage();
+    Process* getProcess();
     bool getLoadOK();
     void init();
     void update1S();

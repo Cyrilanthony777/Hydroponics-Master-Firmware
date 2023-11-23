@@ -10,13 +10,13 @@ class Config
         uint32_t getSensorPollingInterval();
         void setSensorPollingInterval(uint32_t val);
         uint32_t getpHupON();
-        uint32_t getpHupOFF();
+        uint32_t getpHDelay();
         uint32_t getpHdownON();
-        uint32_t getpHdownOFF();
+        uint32_t getECDelay();
         uint32_t getECaON();
-        uint32_t getECaOFF();
+        uint32_t getUvON();
         uint32_t getECbON();
-        uint32_t getECbOFF();
+        uint32_t getUvOFF();
         uint32_t getPumpON();
         uint32_t getPumpOFF();
         uint32_t getLightON();
@@ -28,13 +28,13 @@ class Config
         float getECdz();
         float getPHdz();
         void setpHupON(uint32_t indata);
-        void setpHupOFF(uint32_t indata);
+        void setpHDelay(uint32_t indata);
         void setpHdownON(uint32_t indata);
-        void setpHdownOFF(uint32_t indata);
+        void setECDelay(uint32_t indata);
         void setECaON(uint32_t indata);
-        void setECaOFF(uint32_t indata);
+        void setUvON(uint32_t indata);
         void setECbON(uint32_t indata);
-        void setECbOFF(uint32_t indata);
+        void setUvOFF(uint32_t indata);
         void setPumpON(uint32_t indata);
         void setPumpOFF(uint32_t indata);
         void setLightON(uint32_t indata);
@@ -45,6 +45,7 @@ class Config
         void setPHsetpoint(float sp);
         void setECdz(float sp);
         void setPHdz(float sp);
+        String getJson();
         
     
     private:

@@ -56,9 +56,25 @@ bool Network::initNetwork()
 
 
   server.on("/sensors", HTTP_GET, [&](AsyncWebServerRequest *request){
-    
-    
     request->send(200, "application/json",this->hydroponics->getSensors()->getJson());
+  });
+
+  server.on("/config", HTTP_GET, [&](AsyncWebServerRequest *request){
+    request->send(200, "application/json",this->hydroponics->getConfig()->getJson());
+  });
+
+  server.on("/actuators", HTTP_GET, [&](AsyncWebServerRequest *request){
+    request->send(200, "application/json",this->hydroponics->getSensors()->getJson());
+  });
+
+  server.on("/start", HTTP_GET, [&](AsyncWebServerRequest *request){
+    this->hydroponics->getProcess()->run();
+    request->send(200, "text/plain","OK");
+  });
+
+  server.on("/stop", HTTP_GET, [&](AsyncWebServerRequest *request){
+    this->hydroponics->getProcess()->stop();
+    request->send(200, "text/plain","OK");
   });
 
   server.begin();

@@ -21,6 +21,7 @@ class Calibration
     void setWaterTempCalib(float val);
     float getWaterFlowCalib();
     void setWaterFlowCalib(float val);
+    String getJson();
   private:
     float light=0.0,airtemp=0.0,humi=0.0,ph=0.0,ec=0.0,wt=0.0,flow=0.0;
     
