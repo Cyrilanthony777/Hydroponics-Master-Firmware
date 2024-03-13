@@ -35,6 +35,7 @@ void Process::run()
   this->actuators->setAir(true);
   this->actuators->setUV(true);
   this->processRunning = true;
+  this->display->setRunning(true);
 }
 
 

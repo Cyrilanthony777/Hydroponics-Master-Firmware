@@ -1,8 +1,11 @@
+#include <stdint.h>
+
 #include "Sensors.h"
 
 BH1750 lightMeter;
 OneWire oneWire(WATER_TEMP_PIN);
 DallasTemperature waterTempSensor(&oneWire);
+ModbusMaster node;
 
 Sensors::Sensors(Calibration* calib,Config* config)
 {
@@ -12,12 +15,167 @@ Sensors::Sensors(Calibration* calib,Config* config)
 
 void Sensors::init(void)
 {
+  
   sensorPollingInterval = config->getSensorPollingInterval();
   Wire.begin();
   this->initClimateSensor();
   this->light_sensor_ok = lightMeter.begin();
   this->initWaterTempSensor();
+  this->initWaterSensors();
   
+}
+
+void Sensors::initWaterSensors()
+{
+  Serial2.begin(9600,SERIAL_8N1,16,17,false,20);
+  node.begin(2,Serial2);
+  //pinMode(SELECTOR_PIN,OUTPUT);
+  //digitalWrite(SELECTOR_PIN,this->selector);
+}
+
+void Sensors::setEC(int raw_sensor)
+{
+  int raw = map(raw_sensor,10,1008,0,1023);
+  float voltage = raw * (5000.0/1023.0);
+  this->raw_ec = voltage;
+  float nec = 1000*voltage / 820.0 /200.0;
+  float Kval = 1.0;
+  if(nec > 2.5)
+  {
+    Kval = this->calib->getEChigh();
+  }
+  else if(nec < 2.0)
+  {
+    Kval = this->calib->getEClow();
+  }
+
+  float value = nec * Kval;
+  this->ec = value / (1.0+0.185*(this->water_temp - 25.0));
+}
+
+float Sensors::getECvoltage()
+{
+  return this->raw_ec;
+}
+
+void Sensors::setPH(int raw_sensor)
+{
+  int raw = map(raw_sensor,10,1008,0,1023);
+  float voltage = raw * (5000.0/1023.0);
+  this->raw_ph = voltage;
+
+  float slope = (3.0)/(((this->calib->getPHNeutral() - 2500.0)/3.0) - ((this->calib->getPHAcid()-2500.0)/3.0));
+  float intercept = 7.0 - slope * ((this->calib->getPHNeutral() - 2500.0)/3.0);
+  this->ph = ((slope * (voltage-2500.0) )/3.0) + intercept;
+}
+
+void Sensors::updateSensorBuffer()
+{
+  unsigned long mill = millis();
+  
+  if(mill >= this->next_read)
+  {
+     //Serial.println("fired");
+     if(Serial2.available() == 4)
+      {
+        uint8_t t1=0,t2=0,t3=0,t4=0;
+        t1 = Serial2.read();
+        t2 = Serial2.read();
+        t3 = Serial2.read();
+        t4 = Serial2.read();
+        uint8_t crc = t2 ^ t3;
+        if((t1 == 0xCC)&&(t4 == crc))
+        {
+          int pd = t2 | t3<<8;
+          //Serial.println("got..");
+          if((pd>=0) && (pd<=1023))
+          {
+            this->low_byte = t2;
+            this->high_byte = t3;
+          }
+        }
+        
+        Serial2.flush();
+      }
+  }
+  else
+  {
+    Serial2.read();
+  }
+ 
+}
+
+void Sensors::updateWaterSensors()
+{
+
+    unsigned long mill = millis();
+
+    if(mill >= this->next_read)
+    {
+
+ 
+
+    int raw = this->low_byte | this->high_byte << 8;
+    if(this->selector)
+      {
+        Serial.print("EC RAW : ");
+        Serial.println(raw);
+      }
+      else
+      {
+        Serial.print("PH RAW : ");
+        Serial.println(raw);
+      }
+    if(raw <= 1023)
+    {
+      if(this->selector == true)
+      {
+        this->setEC(raw);
+        this->ec_err = 0;
+      }
+      else
+      {
+        this->setPH(raw);
+        this->ph_err = 0;
+      }
+    }
+    else
+    {
+      if(this->selector)
+      {
+        this->ec_err++;
+      }
+      else
+      {
+        this->ph_err++;
+      }
+    }
+
+
+
+  if(this->ph_err >= MAX_ERROR_TRESHOLD)
+  {
+    this->setPH(0);
+  }
+
+  if(this->ec_err >= MAX_ERROR_TRESHOLD)
+  {
+    this->setEC(0);
+  }
+
+   }
+  
+
+}
+
+
+void Sensors::switchSensor()
+{
+    this->selector = !this->selector;
+    //digitalWrite(SELECTOR_PIN,this->selector);
+    unsigned long mill = millis();
+    
+    this->next_read = mill + 1000;
 }
 
 void Sensors::initWaterTempSensor()
@@ -101,6 +259,8 @@ void Sensors::sensorUpdate(void)
   this->updateClimateSensor();
   this->updateLightSensor();
   this->updateWaterTempSensor();
+  this->updateWaterSensors();
+  /*
   Serial.print("Water Temp: ");
   Serial.print(this->water_temp);
   Serial.print(" | Air Temp: ");
@@ -108,7 +268,7 @@ void Sensors::sensorUpdate(void)
   Serial.print(" | Humidity: ");
   Serial.print(this->humidity);
   Serial.print(" | Light: ");
-  Serial.println(this->light);
+  Serial.println(this->light);*/
   
 }
 

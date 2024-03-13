@@ -38,25 +38,46 @@ void Calibration::setHumidityCalib(float val)
   humi = val;
 }
 
-float Calibration::getPHCalib()
+float Calibration::getPHAcid()
 {
-  return ph;
+  return this->ph_acid;
 }
 
-void Calibration::setPHCalib(float val)
+void Calibration::setPHAcid(float val)
 {
-  ph = val;
+  this->ph_acid = val;
 }
 
-float Calibration::getECCalib()
+float Calibration::getPHNeutral()
 {
-  return ec;
+  return this->ph_neutral;
 }
 
-void Calibration::setECCalib(float val)
+void Calibration::setPHNeutral(float val)
 {
-  ec = val;
+  this->ph_neutral = val;
 }
+
+float Calibration::getEClow()
+{
+  return ec_low;
+}
+
+void Calibration::setEClow(float val)
+{
+  this->ec_low = val;
+}
+
+float Calibration::getEChigh()
+{
+  return this->ec_high;
+}
+
+void Calibration::setEChigh(float val)
+{
+  this->ec_high = val;
+}
+
 
 float Calibration::getWaterTempCalib()
 {
@@ -76,6 +97,32 @@ float Calibration::getWaterFlowCalib()
 void Calibration::setWaterFlowCalib(float val)
 {
   flow = val;
+}
+
+int Calibration::calibrateEC(float voltage,float temp)
+{
+  int ret = 0;
+  float raw_ec = 1000.0*voltage/820.0/200.0;
+  if((raw_ec >= 0.9) && (raw_ec <=1.9))
+  {
+    float compensation = 1.413*(1.0+0.0185*(temp-25.0));
+    this->ec_low = 820.0*200.0*compensation/1000.0/voltage;
+    ret = 1;
+  }
+  else if((raw_ec >= 9.0)&&(raw_ec <= 16.8))
+  {
+    float compensation = 12.88*(1.0+0.0185*(temp-25.0));
+    this->ec_high = 820.0*200.0*compensation/1000.0/voltage;
+    ret = 2;
+  }
+
+  return ret;
+
+}
+
+int Calibration::calibratePH(float raw)
+{
+  
 }
 
 

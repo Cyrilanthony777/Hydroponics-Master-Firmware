@@ -1,6 +1,7 @@
 #ifndef Hydroponics_H
 #define Hydroponics_H
 
+#include "Arduino.h"
 #include "Actuators.h"
 #include "Calibration.h"
 #include "Config.h"
@@ -47,8 +48,11 @@ public:
     Process* getProcess();
     bool getLoadOK();
     void init();
+    void updateFreeRun();
+    void resetConfigDefaults();
     void update1S();
     void update3S();
+    String getJSON();
 };
 
 
