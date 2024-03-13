@@ -1,6 +1,7 @@
 #ifndef Hydroponics_H
 #define Hydroponics_H
 
+#include "Arduino.h"
 #include "Actuators.h"
 #include "Calibration.h"
 #include "Config.h"
@@ -11,7 +12,7 @@
 #include "NetworkConfigs.h"
 #include "Sensors.h"
 #include "Storage.h"
-
+#include "Process.h"
 
 
 
@@ -28,6 +29,7 @@ private:
     NetworkConfigs* networkConfigs;
     Sensors* sensors;
     Storage* storage;
+    Process* process;
     bool loadOK = false;
 
     
@@ -43,10 +45,14 @@ public:
     NetworkConfigs* getNetworkConfig();
     Sensors* getSensors();
     Storage* getStorage();
+    Process* getProcess();
     bool getLoadOK();
     void init();
+    void updateFreeRun();
+    void resetConfigDefaults();
     void update1S();
     void update3S();
+    String getJSON();
 };
 
 
