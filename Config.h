@@ -50,7 +50,7 @@ class Config
     
     private:
         uint32_t sensorPollingInterval = 1000;
-        uint32_t ph_up_on = 10,ph_up_off = 10,ph_dn_on = 10,ph_dn_off = 10,ec_a_on=10,ec_a_off=10,ec_b_on=10,ec_b_off=10,pump_on=60,pump_off=60,air_on=60,air_off=60,light_on=43200,light_off=43200;
+        uint32_t ph_up_on = 10,ph_up_off = 10,ph_dn_on = 10,ph_dn_off = 10,ec_a_on=10,ec_a_off=10,ec_b_on=10,ec_b_off=10,pump_on=60,pump_off=600,air_on=60,air_off=120,light_on=43200,light_off=43200;
         float sp_ec = 1.2,sp_ph = 7.0,ec_dz=0.2,ph_dz=0.5;
 
     

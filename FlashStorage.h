@@ -4,7 +4,7 @@
 #include "Calibration.h"
 #include "Config.h"
 
-#define STORAGE_SIZE 106
+#define STORAGE_SIZE 114
 
 class FlashStorage{
 
@@ -14,6 +14,8 @@ class FlashStorage{
     bool getValid();
     Calibration* getCalibration();
     Config* getConfig();
+    void setCalibration(Calibration* cal);
+    void setConfig(Config* con);
     void save();
   private:
     uint8_t buffer[STORAGE_SIZE];

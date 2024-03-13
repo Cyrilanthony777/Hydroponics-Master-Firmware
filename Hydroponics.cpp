@@ -41,14 +41,27 @@ void Hydroponics::update1S()
     this->process->processCallback();
 }
 
+void Hydroponics::resetConfigDefaults()
+{
+  this->config = new Config();
+  this->flashStorage->setConfig(this->config);
+  this->flashStorage->save();
+}
+
 bool Hydroponics::getLoadOK()
 {
   return this->loadOK;
 }
 
+void Hydroponics::updateFreeRun()
+{
+  this->sensors->updateSensorBuffer();
+}
+
 void Hydroponics::update3S()
 {
   this->display->changeScreen();
+  this->sensors->switchSensor();
 }
 
 Actuators* Hydroponics::getActuators()
@@ -104,4 +117,22 @@ Storage* Hydroponics::getStorage()
 Process* Hydroponics::getProcess()
 {
   return this->process;
+}
+
+String Hydroponics::getJSON()
+{
+  char buff[2048];
+
+  int xp = sprintf(buff,
+            "{"
+            "\"api_key\": \"%s\","
+            "\"running\": %d,"
+            "\"sensors\": %s,"
+            "\"config\": %s,"
+            "\"actuators\": %s"
+            "}",
+            this->networkConfigs->getApiKey().c_str(), (this->process->isRunning()?1:0), this->sensors->getJson().c_str(), this->config->getJson().c_str(), this->actuators->getJson().c_str()
+            );
+
+  return String(buff);
 }

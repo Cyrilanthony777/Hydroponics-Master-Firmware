@@ -1,23 +1,34 @@
+#include "esp32-hal-gpio.h"
 #include "Actuators.h"
 
 
 Actuators::Actuators()
 {
   pinMode(PIN_PUMP, OUTPUT);
-  pinMode(PIN_UV, OUTPUT);
-  pinMode(PIN_LIGHT, OUTPUT);
-  pinMode(PIN_AIR, OUTPUT);
+  pinMode(PIN_UV, OUTPUT_OPEN_DRAIN);
+  pinMode(PIN_LIGHT, OUTPUT_OPEN_DRAIN);
+  pinMode(PIN_AIR, OUTPUT_OPEN_DRAIN);
   pinMode(PIN_EC_A, OUTPUT);
   pinMode(PIN_EC_B, OUTPUT);
   pinMode(PIN_PH_UP, OUTPUT);
   pinMode(PIN_PH_DN, OUTPUT);
+
+  digitalWrite(PIN_PUMP, LOW);
+  digitalWrite(PIN_UV, HIGH);
+  digitalWrite(PIN_LIGHT, HIGH);
+  digitalWrite(PIN_AIR, HIGH);
+  digitalWrite(PIN_EC_A, LOW);
+  digitalWrite(PIN_EC_B, LOW);
+  digitalWrite(PIN_PH_UP, LOW);
+  digitalWrite(PIN_PH_DN, LOW);
+  
 
 }
 
 void Actuators::setAir(bool state)
 {
   this->aerator = state;
-  digitalWrite(PIN_AIR, state);  
+  digitalWrite(PIN_AIR, !state);  
 }
 void Actuators::setPump(bool state)
 {
@@ -28,14 +39,14 @@ void Actuators::setPump(bool state)
 void Actuators::setUV(bool state)
 {
   this->uv = state;
-  digitalWrite(PIN_UV, state);  
+  digitalWrite(PIN_UV, !state);  
 }
 
 
 void Actuators::setLight(bool state)
 {
   this->light = state;
-  digitalWrite(PIN_LIGHT, state);  
+  digitalWrite(PIN_LIGHT, !state);  
 }
 
 void Actuators::setEcA(bool state)
