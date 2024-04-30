@@ -47,6 +47,9 @@ bool NetworkConfigs::initNetworkConfig()
     this->ssid = ssid;
     this->password = password;
     this->apiKey = apiKey;
+
+    Serial.println(ssid);
+    Serial.println(password);
     isOK = true;
     return true;
 }

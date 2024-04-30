@@ -47,6 +47,7 @@ void Display::drawScreen2()
 
 bool Display::initDisplay()
 {
+  Wire.begin();
  if(display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     this->isOK = true;
     Serial.println("Display Init OK");

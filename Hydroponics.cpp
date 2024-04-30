@@ -22,13 +22,20 @@ void Hydroponics::init()
     this->sensors->init();
     this->display = new Display(this->sensors);
     this->display->initDisplay();
+    Serial.println("Here1");
     if(this->storage->initStorage())
     {
+        Serial.println("Storage OK");
         this->networkConfigs = new NetworkConfigs(this->storage);
+        Serial.println("NETWORK OK");
         configInit = this->networkConfigs->initNetworkConfig();
+        Serial.println("HereX");
     }
+    Serial.println("Here2");
     this->display->setSdOK(this->storage->isStorageOK());
+    Serial.println("Here3");
     this->display->setConfigOK(configInit);
+    Serial.println("Here4");
     this->loadOK = true;
     this->process = new Process(this->actuators,this->config,this->display,this->sensors);
 

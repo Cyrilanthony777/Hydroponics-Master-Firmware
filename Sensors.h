@@ -5,12 +5,11 @@
 #include "Calibration.h"
 #include "Config.h"
 #include "pindefs.h"
-#include <Wire.h>
-#include <BH1750.h>
-#include <OneWire.h>
-#include <DallasTemperature.h>
-#include <ModbusMaster.h>
 //#include <HardwareSerial.h>
+
+#define climateNode 1
+#define nutrientNode 2
+#define auxNode 3
 
 #define CLIMATE_SENSOR_ADDR 0x44
 #define MAX_ERROR_TRESHOLD 3
@@ -41,6 +40,11 @@ class Sensors
     Config* config;
     int sensorPollingInterval = 1000;
     void flowCallback(void);
+    uint8_t address[3] = {0x1A,0x02,0xA2};
+    uint8_t nodes[3] ={0x01,0x02,0x03};
+    int connected = 3;
+    int errors[3] = {0,0,0};
+    int currentNode = 0;
     bool selector = false;
     float light = 0.0;
     float air_tempe = 0.0;
@@ -68,6 +72,7 @@ class Sensors
     void nodesCallback(void);
     void setPH(int raw);
     void setEC(int raw);
+    
     
   
 };

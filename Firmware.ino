@@ -3,12 +3,12 @@
 #include <Arduino.h>
 #include "Hydroponics.h"
 #include "Network.h"
-#
+
 
 unsigned long nextMillis1s = 0;
 unsigned long nextMillis3s = 3000;
 unsigned long nextMillis15s = 0;
-Hydroponics* hydroponics;
+static Hydroponics* hydroponics;
 
 TaskHandle_t Task0,Task1;
 
@@ -19,6 +19,7 @@ void thread0(void * params)
   {
     unsigned long currentMillis = millis();
     hydroponics->updateFreeRun();
+    
   if(currentMillis >= nextMillis1s)
   {
     nextMillis1s = currentMillis + 1000;
@@ -38,7 +39,7 @@ void thread0(void * params)
 void thread1(void * params)
 {
   Serial.println("Network Thread Started");
- Network* network = new Network(hydroponics);
+ static Network* network = new Network(hydroponics);
  network->initNetwork();
   const TickType_t xDelay = 15000 / portTICK_PERIOD_MS;
  while(true)
